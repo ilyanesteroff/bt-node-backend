@@ -9,7 +9,7 @@ const pbkdf2async = promisify(pbkdf2)
 export const crypto: Handler = async (_, res) => {
   const password = randomBytes(8).toString('hex')
 
-  const key = await pbkdf2async(password, 'salt', 10000, 24, 'sha-256') as Buffer
+  const key = await pbkdf2async(password, 'salt', 20000, 24, 'sha-256') as Buffer
 
   const str = key.toString('hex')
 

@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+.gcloudignore
+todo.md
+tsconfig.json
+webpack.config.js
+node_modules/
+src/

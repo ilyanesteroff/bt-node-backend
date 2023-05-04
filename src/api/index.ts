@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import { networking, filesystem, measureStart, measureStop, crypto } from '../handlers'
+import { networking, filesystem, measureStart, measureStop, crypto, jwt } from '../handlers'
 
 
 export const api = (app: Express) => {
@@ -9,4 +9,5 @@ export const api = (app: Express) => {
   app.post('/networking', networking)
   app.post('/crypto', crypto)
   app.post('/fs', filesystem)
+  app.post('/jwt', jwt)
 }

@@ -1,0 +1,32 @@
+name: Deployment
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Deps
+        run: npm i
+      - name: Build
+        run: npm run build:ci
+      - name: Deployment
+        uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          deliverables: --appyaml=gcp/app.yaml --ignore-file=gcp/.gcloudignore
+          credentials: ${{ secrets.CREDENTIALS }}
+          project_id: ${{ secrets.PROJECT_ID }}

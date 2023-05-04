@@ -11,6 +11,11 @@ const read = promisify(readFile)
 const write = promisify(writeFile)
 
 
+const DIR = process.env.NODE_ENV === 'production'
+  ? '/tmp/'
+  : './tmp/'
+
+
 export const filesystem: Handler = async (_, res) => {
   const content = (await read(FILENAME)).toString('utf-8')
 
@@ -22,7 +27,7 @@ export const filesystem: Handler = async (_, res) => {
 
   json = { ...json, [key]: value }
 
-  await write(`./tmp/${key}.json`, JSON.stringify(json))
+  await write(`${DIR}/${key}.json`, JSON.stringify(json))
 
   return res.status(201).json(json)
 }
