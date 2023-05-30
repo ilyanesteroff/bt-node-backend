@@ -3,7 +3,7 @@ import { PORT } from './config'
 import { api } from './api'
 
 
-const startup = async () => {
+const startup = () => {
   try {
     const app = express()
 
